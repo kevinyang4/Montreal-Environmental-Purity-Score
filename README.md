@@ -1,5 +1,5 @@
 # not-finance-bros
-Kevin Yang \\
-Eric Tan \\
-Shan Gao \\
-Alex Le \\
+Kevin Yang <br/>
+Eric Tan <br/>
+Shan Gao <br/>
+Alex Le 
