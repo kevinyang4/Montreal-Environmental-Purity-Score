@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './App.css'; // Make sure to import the CSS file
 import Results from './Result';
+import './App.css';
+
 
 const questions = [
   "What’s your preferred method of transportation and how often do you use it?",
@@ -44,7 +45,7 @@ function App() {
   const [answers, setAnswers] = useState([]);
   const [completed, setCompleted] = useState(false);
   const [processedResults, setProcessedResults] = useState(null);
-
+  const [animateLeft, setAnimateLeft] = useState(false);
 
   useEffect(() => {
     const storedAnswers = localStorage.getItem('answers');
@@ -98,6 +99,7 @@ function App() {
 
   const handleNext = () => {
     let answer;
+    setAnimateLeft(false);
     if (currentQuestionIndex === 0) {
       answer = `${currentTransportMode}, ${currentSliderValue}`;
     } 
@@ -137,9 +139,35 @@ function App() {
   }
 
   return (
-    
-    <div className="App">
       
+    <div>
+      <header className="header">
+        <img src="/realLogo.png" className="logo-left" />
+        <h1>Montreal Environmental Purity Score</h1>
+        <img src="/realLogo.png" className="logo-right" />
+      </header>
+      <div className="separator"></div>
+      <div className='About'>
+        <section className="website-description">
+        <div className="text-container">
+          <h2>About</h2>
+          <p>
+            Welcome to the Montreal Environmental Purity Score (MEPS) website. This platform aims to gather information about your environmental habits to assess your environmental impact. Your responses to the following questions will help us calculate your environmental purity score.
+          </p>
+          </div>
+          <div className="image-container">
+          <h3>This could be <br></br>YOU</h3>
+          <img src="/logo.png" className=""/>
+          </div>
+        </section>
+      </div>
+      <div className='Invitation'>
+        <section className="website-invitation">
+          <h2>Answer questions to learn about your eco-rank</h2>
+        </section>
+      </div>
+      <div className="App">
+      <section className="questionnaire">
       <h1>{questions[currentQuestionIndex]}</h1>
       {currentQuestionIndex === 0 ? (
         <div>
@@ -240,6 +268,11 @@ function App() {
 <button onClick={currentQuestionIndex === questions.length - 1 ? handleSubmit : handleNext}>
         {currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next'}
       </button>
+      </section>
+      <div className="center-button">
+        <button onClick={handleNext}>Next</button>
+        </div>
+      </div>
     </div>
   );
 }
