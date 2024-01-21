@@ -1,74 +1,3 @@
-// import React, {useState, useEffect} from 'react'
-// import api from './api'
-
-// const App = () => {
-//   const[questionnaire, setQuestionnaire] = useState([]);
-//   const[formData, setFormData] = useState({
-//     prompt1 : '',
-//     prompt2: '',
-//     prompt3: '',
-//     prompt4: '',
-//     prompt5: ''
-
-//   });
-
-
-//   const fetchQuestionnaire = async () => {
-//     const response = await api.get('/questionnaire/');
-//     setQuestionnaire(response.data)
-//   };
-
-//   useEffect(() => {
-//     fetchQuestionnaire();
-//   }, []);
-
-//   const handleInputChange = (event) => {
-//     const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-//     setFormData({
-//       ... formData,
-//       [event.target.name]: value,
-//     });
-//   };
-
-//   const handleFormSubmit = async (event) => {
-//     event.preventDefault();
-//     await api.post('/questionnaire/', formData);
-//     fetchQuestionnaire();
-//     setFormData({
-//       prompt1 : '',
-//       prompt2: '',
-//       prompt3: '',
-//       prompt4: '',
-//       prompt5: ''
-//     });
-//   };
-//   return(
-//     <div>
-//       <nav className='navbar navbar-dark bg-primary'>
-//           <div className='container-fluid'>
-//               <a className='navbar-brand' href="#">
-//                   Questionnaire App
-//               </a>
-//           </div>
-//       </nav>
-//       <div className='container'>
-//         <form onSubmit={handleFormSubmit}>
-//           <div className='mb-3 mt-3'>
-//             <label htmlFor='amount' className='form-label'>
-//               Amount
-//             </label>
-//             <input type='text' className='form-control' id='amount' name='amount' onChange={handleInputChange} value={formData.amount}/>
-//           </div>
-
-//         </form>
-
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default App;
-
 import React, { useState, useEffect } from 'react';
 import './App.css'; // Make sure to import the CSS file
 
@@ -86,6 +15,25 @@ const transportationModes = [
   "Public Transport",
   "Bicycle"
 ];
+
+const numAirplane = [
+  "0",
+  "1",
+  "2",
+  "3",
+  "4 or more"
+]
+
+const radioCompost = [
+  "Yes",
+  "No"
+]
+
+const radioDiet = [
+  "Vegan",
+  "Vegeterian",
+  "Other diet"
+]
 
 function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -106,18 +54,24 @@ function App() {
   }, [answers]);
 
   const handleNext = () => {
-    let answer = currentQuestionIndex === 0
-      ? `${currentTransportMode}, ${currentSliderValue}`
-      : currentTextInput;
-
+    let answer;
+  
+    if (currentQuestionIndex === 0) {
+      answer = `${currentTransportMode}, ${currentSliderValue}`;
+    } else if (currentQuestionIndex === 3) {
+      answer = currentSliderValue;
+    } else {
+      answer = currentTextInput;
+    }
+  
     const updatedAnswers = [...answers];
     updatedAnswers[currentQuestionIndex] = answer;
     setAnswers(updatedAnswers);
-
+  
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setCurrentTextInput('');
-      setCurrentSliderValue('0.5'); // Reset slider for next use if needed
+      setCurrentSliderValue('0.5'); // Reset slider for the next use if needed
     } else {
       console.log(updatedAnswers);
     }
@@ -168,6 +122,64 @@ function App() {
               onChange={handleSliderChange}
             />
           </div>
+        </div>
+      ) : currentQuestionIndex === 1 ? (
+        <div className="radio-group">
+          {numAirplane.map((option, index) => (
+            <label key={index}>
+              <input
+                type="radio"
+                value={option}
+                checked={currentTextInput === option}
+                onChange={handleTextInputChange}
+              />
+              {option}
+            </label>
+          ))}
+        </div>
+      ) : currentQuestionIndex === 2 ? (
+        <div className="radio-group">
+          {radioCompost.map((option, index) => (
+            <label key={index}>
+              <input
+                type="radio"
+                value={option}
+                checked={currentTextInput === option}
+                onChange={handleTextInputChange}
+              />
+              {option}
+            </label>
+          ))}
+        </div>
+      ) : currentQuestionIndex === 3 ? (
+        <div className="slider-container">
+          <div className="labels">
+            <span>Rarely</span>
+            <span>Moderate</span>
+            <span>Often</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={currentSliderValue}
+            onChange={handleSliderChange}
+          />
+        </div>
+      ) : currentQuestionIndex === 4 ? (
+        <div className="radio-group">
+          {radioDiet.map((option, index) => (
+            <label key={index}>
+            <input
+              type="radio"
+              value={option}
+              checked={currentTextInput === option}
+              onChange={handleTextInputChange}
+            />
+            {option}
+            </label>
+          ))}
         </div>
       ) : (
         <input
