@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css'; // Make sure to import the CSS file
+import Results from './Result';
 
 const questions = [
   "What’s your preferred method of transportation and how often do you use it?",
@@ -41,11 +42,17 @@ function App() {
   const [currentSliderValue, setCurrentSliderValue] = useState('0.5');
   const [currentTextInput, setCurrentTextInput] = useState('');
   const [answers, setAnswers] = useState([]);
+  const [completed, setCompleted] = useState(false);
+  const [processedResults, setProcessedResults] = useState(null);
+
 
   useEffect(() => {
     const storedAnswers = localStorage.getItem('answers');
     if (storedAnswers) {
       setAnswers(JSON.parse(storedAnswers));
+    }
+    if (storedAnswers.length > 4) {
+      setCompleted(true);
     }
   }, []);
 
@@ -53,12 +60,48 @@ function App() {
     localStorage.setItem('answers', JSON.stringify(answers));
   }, [answers]);
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    let answer = currentTextInput;
+    const updatedAnswers = [...answers, answer];
+    setAnswers(updatedAnswers);
+
+    // Convert the updatedAnswers array to a JSON string
+    const answersJson = JSON.stringify(updatedAnswers);
+
+    // Save the JSON string to local storage
+    localStorage.setItem('answers', answersJson);
+
+    // Send the JSON string to the backend
+    try {
+        const response = await fetch('http://localhost:8000/submit_answers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ answers: answersJson }) // Sending JSON string as a property of an object
+        });
+
+        if (response.ok) {
+            const processedResults = await response.json();
+            setProcessedResults(processedResults); // Assuming you want to do something with the processed results
+            setCompleted(true); // Assuming you want to set some state to indicate completion
+          } else {
+            // Handle errors, if the response is not okay
+            console.error('Server responded with status:', response.status);
+        }
+    } catch (error) {
+        console.error('Error with submission:', error);
+    }
+};
+
+
   const handleNext = () => {
     let answer;
-  
     if (currentQuestionIndex === 0) {
       answer = `${currentTransportMode}, ${currentSliderValue}`;
-    } else if (currentQuestionIndex === 3) {
+    } 
+    else if (currentQuestionIndex === 3) {
       answer = currentSliderValue;
     } else {
       answer = currentTextInput;
@@ -89,8 +132,14 @@ function App() {
     setCurrentSliderValue(e.target.value);
   };
 
+  if (completed) {
+    return <Results processedResults={processedResults} />;
+  }
+
   return (
+    
     <div className="App">
+      
       <h1>{questions[currentQuestionIndex]}</h1>
       {currentQuestionIndex === 0 ? (
         <div>
@@ -188,7 +237,9 @@ function App() {
           onChange={handleTextInputChange}
         />
       )}
-      <button onClick={handleNext}>Next</button>
+<button onClick={currentQuestionIndex === questions.length - 1 ? handleSubmit : handleNext}>
+        {currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next'}
+      </button>
     </div>
   );
 }
