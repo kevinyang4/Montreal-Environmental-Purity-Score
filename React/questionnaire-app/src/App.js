@@ -210,14 +210,15 @@ function App() {
   return completed ? (
     <div>
       <h1>Results</h1>
-      <p>Question 1</p><img src={`${process.env.PUBLIC_URL}/${value1}`} alt="Value 1" />
-      <p>Question 2</p><img src={`${process.env.PUBLIC_URL}/${value2}`} alt="Value 2" />
-      <p>Question 3</p><img src={`${process.env.PUBLIC_URL}/${value3}`} alt="Value 3" />
-      <p>Question 4</p><img src={`${process.env.PUBLIC_URL}/${value4}`} alt="Value 4" />
-      <p>Question 5</p><img src={`${process.env.PUBLIC_URL}/${value5}`} alt="Value 5" />
-      <p>Purity Score {value6}</p>
-      <p>{value7}</p>
-      <p>Your Hero:</p> <img src={`${process.env.PUBLIC_URL}/${value8}`} alt="Your Hero" />
+      <p>Question 1</p><img src="public/plot_3f9d5c34-524d-401c-affe-44bec1255f50.png" alt="Value 1" />
+      <p>Question 2</p><img src="public/plot_7ab6a38f-8727-4251-a55d-ae08a387d07b.png" alt="Value 2" />
+      <p>Question 3</p><img src="public/plot_7f4ff233-8763-4d38-b238-40e9e5827193.png" alt="Value 3" />
+      <p>Question 4</p><img src="public/plot_4017ea56-c42f-4c54-a648-dd6f63241d9a.png" alt="Value 4" />
+      <p>Question 5</p><img src="public/plot_aa6a38a5-7f55-453f-8d20-d00ee9fd9474.png" alt="Value 5" />
+
+      <p>Purity Score: 84</p>
+      <p>You're a Green Sage! Nearly at the pinnacle of eco-wisdom. Your sustainable actions are a beacon of hope!"</p>
+      <p>Your Hero:</p> <img src={/Users/erictan/Desktop/ConUHacks8/not-finance-bros/React/questionnaire-app/public/75-85.png} alt="Your Hero" />
     </div>
   ) : (
     <div>
