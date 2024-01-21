@@ -1,59 +1,250 @@
-.App {
+/* Basic reset for styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* CSS for the About section */
+.About {
+  display: flex;
+  flex-direction: row; /* Arrange containers horizontally */
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+/* Style for the content container */
+.content-container {
+  display: flex; /* Display its children horizontally */
+  align-items: center; /* Vertically center the content within the container */
+  flex: 1; /* Allow the container to grow and take available space */
+}
+
+/* Style for the text container */
+.text-container {
+  flex: 1; /* Allow the text container to grow and take available space */
+}
+
+.Invitation {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.text-container h2 {
+  font-size: 1.5em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* CSS for the container */
+.image-container {
+  text-align: right;
+  padding-top: 30px;
+  display: flex; /* Display its children horizontally */
+  align-items: center; /* Vertically center the content within the container */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Style for the <h3> element */
+.image-container h3 {
+  margin-left: 15px;
+  margin-right: 120px !important; /* Adjust the margin to control the space between the heading and the image */
+}
+
+.image-container img {
+  max-width: 60%; /* Ensure the image fits within its container */
+}
+
+.container svg {
+  width: 20px; /* Adjust the width of the arrow */
+  height: 40px; /* Adjust the height of the arrow */
+}
+
+
+
+/* Set a font that is clean and modern, such as Arial or Helvetica */
+body, input, button {
+  font-family: 'Arial', sans-serif;
+  color: #2e2e2e; /* A dark color for text */
+}
+
+/* Set a light background color that complements the low-poly aesthetic */
+body {
+  background: linear-gradient(to bottom, #BCEE8B, #61BAC6, #BCEE8B);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin-bottom: 200px;
+}
+
+/* CSS for the header separator with wavy form */
+.separator {
+  position: relative;
+  height: 10px; /* Adjust the height as needed */
+  background-color: #61BAC6; /* Background color for the separator */
+}
+
+.separator::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 10px; /* Adjust the height of the waves */
+  background: repeating-linear-gradient(90deg, transparent, transparent 5px, #BCEE8B 5px, #BCEE8B 10px);
+}
+
+
+
+
+.header {
+  background: linear-gradient(to bottom, #dea940, #d8ee8b); /* Gradient background */
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: white; /* Text color for better contrast */
+  font-size: 28px;
+  padding-top: 30px;
+}
+
+.logo-left {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  height: 75px; /* Adjust the height as needed */
+  padding-right: 20px; /* Adjust the padding to control the distance between the image and the right edge */
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.logo-right {
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  height: 75px; /* Adjust the height as needed */
+  padding-left: 20px; /* Adjust the padding to control the distance between the image and the right edge */
+  display: flex;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
+/* Style the main application container */
+.App {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-image: radial-gradient(#c0f25d, rgb(186, 235, 133));
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 20px;
+}
+
+/* Style the question headers */
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 1.5em;
+}
+
+.slide-left {
+  animation: slideLeft 500ms forwards;
+}
+
+.slide-right {
+  animation: slideRight 500ms forwards;
+}
+
+@keyframes slideLeft {
   from {
-    transform: rotate(0deg);
+    transform: translateX(0);
   }
   to {
-    transform: rotate(360deg);
+    transform: translateX(-100%);
   }
 }
 
+@keyframes slideRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+
+/* Style the groups of radio buttons and the slider */
+.radio-group, .slider-container {
+  margin: 20px 0;
+}
+
+/* Style individual labels and inputs for radio buttons */
 .radio-group label {
-  display: block;
-  margin-bottom: 10px;
+  display: inline-block;
+  margin: 22px;
+  font-weight: normal;
+  color: #666;
 }
 
+/* Style the slider container */
 .slider-container {
-  text-align: center;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
+/* Style the labels that accompany sliders */
 .labels {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
 }
 
-input[type='range'] {
+/* Improve the visual styling of the range input (slider) */
+input[type="range"] {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
   width: 100%;
+  height: 5px;
+  background: #ffffff;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
 }
 
+/* Style the slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+/* Style the button for navigation */
+button {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* CSS to center-align the button */
+.center-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px; /* Adjust the margin as needed */
+}
+
+
+button:hover {
+  background-color: #388E3C;
+}
+
+/* Add media query for responsive adjustments */
+@media (max-width: 768px) {
+  .App {
+      margin: 20px;
+  }
+
+  .radio-group label, .labels span {
+      font-size: 0.9em;
+  }
+}
