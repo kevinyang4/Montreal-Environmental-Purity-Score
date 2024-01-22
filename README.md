@@ -1,5 +1,17 @@
 Be an Eco Hero! Our web app reveals your nature-saving superpowers with fun & friendship. Join the green adventure & protect Earth!
 
+## Steps to run the WebApp locally
+- Clone the repository
+- Make sure to have Node.js and Python installed
+- Open the terminal and input the following commands:
+  * source env/bin/activate
+  * pip3 install sqlalchemy pydantic uvicorn
+  * cd FastAPI
+  * uvicorn main:app -- reload
+  * cd questionnaire-app 
+  * npm start
+
+
 ## ¬(finance-bros) Team members
 | Name  | Field of Study  |
 | ------------- | ------------- |
